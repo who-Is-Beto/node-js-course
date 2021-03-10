@@ -7,7 +7,12 @@ app.use(bodyParser.json())
 app.use(router)
 
 router.get('/messages', (req, res) => {
+  console.log(req.headers)
+  res.header({
+    "custom-proprty": "custom value"
+  })
   res.send('Message list')
+  console.log(req.headers)
 })
 
 router.post('/messages', (req, res) => {
