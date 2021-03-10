@@ -1,10 +1,22 @@
 const express = require('express')
+const router = express.Router()
 
-const app = express()
+let app = express()
 
-app.use('/', (request, response) => {
-  response.send('Hola')
+app.use(router)
+
+router.get('/messages', (req, res) => {
+  res.send('Message list')
 })
 
-app.listen(8080)
-console.log('the app is listening in http://localhost:8080')
+router.post('/messages', (req, res) => {
+  res.send('Message added')
+})
+
+/* 
+app.use('/', (request, response) => {
+  response.send('Hola')
+}) */
+
+app.listen(3000)
+console.log('the app is listening in http://localhost:3000')
