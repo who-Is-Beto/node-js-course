@@ -38,5 +38,7 @@ app.use('/', (request, response) => {
   response.send('Hola')
 }) */
 
+app.use('/app', express.static('public'))
+
 app.listen(3000)
 console.log('the app is listening in http://localhost:3000')
