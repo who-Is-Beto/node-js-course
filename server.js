@@ -27,7 +27,7 @@ router.post('/messages', (req, res) => {
   }) */
 
   if (req.query.error == 'ok') {
-    response.error(req, res, 'Internal Server Error', 500)
+    response.error(req, res, 'Internal Server Error', 500, 'Error simulado')
   } else {
     response.success(req, res, 'Message created', 201)
   }
