@@ -1,25 +1,27 @@
 const express = require('express')
 const response = require('../../network/response')
+const controller = require('./controller')
 const router = express.Router()
 
 router.get('/', (req, res) => {
-  console.log(req.headers)
-  res.header({
-    "custom-property": "custom value"
-  })
-  //res.send('Message list')
-
-  response.success(req, res, 'Lista de mensajes', 200)
-  /* console.log(req.headers) */
+  controller.getMessages()
+    .then((messageList) => {
+      response.success(req, res, messageList, 200)
+    })
+    .catch((error) => {
+      response.error(req, res, 'Unexpected error', 500, error)
+    })
 })
 
 router.post('/', (req, res) => {
 
-  if (req.query.error == 'ok') {
-    response.error(req, res, 'Internal Server Error', 500, 'Error simulado')
-  } else {
-    response.success(req, res, 'Message created', 201)
-  }
+  controller.addMessage(req.body.user, req.body.message)
+    .then((fullMessage) => {
+      response.success(req, res, fullMessage, 201)
+    })
+    .catch(() => {
+      response.error(req, res, 'Invalid information', 400, 'Error in user or message please check it and try again ):')
+    })
 })
 
 module.exports = router
