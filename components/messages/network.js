@@ -24,4 +24,9 @@ router.post('/', (req, res) => {
     })
 })
 
+router.patch('/:id', (req, res) => {
+  console.log(req.params.id)
+
+  res.send('ok')
+})
 module.exports = router
