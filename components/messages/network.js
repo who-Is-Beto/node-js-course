@@ -24,9 +24,15 @@ router.post('/', (req, res) => {
     })
 })
 
-router.patch('/:id', (req, res) => {
-  console.log(req.params.id)
-
-  res.send('ok')
-})
+router.patch('/:id', async (req, res) => {
+  const { id } = req.params;
+  const { message } = req.body;
+  try {
+    const data = await controller.updateMessage(id, message);
+    response.success(req, res, data, 201);
+  } catch (error) {
+    console.log(error);
+    response.error(req, res, "Error", 400, error)
+  }
+});
 module.exports = router

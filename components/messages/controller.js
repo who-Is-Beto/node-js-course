@@ -27,8 +27,23 @@ function getMessages() {
   })
 }
 
+const updateMessage = (id, message) => {
+  return new Promise(async (resolve, reject) => {
+    if (id && message) {
+      try {
+        const data = await store.updateText(id, message);
+        resolve(data);
+      } catch (error) {
+        reject(new Error(error));
+      }
+    } else {
+      reject(new Error('Missing params'));
+    }
+  });
+};
+
 module.exports = {
   addMessage,
   getMessages,
-
+  updateMessage,
 }
