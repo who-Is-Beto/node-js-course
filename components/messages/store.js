@@ -17,9 +17,17 @@ function addMessage(message) {
 
 }
 
-async function getMessages() {
-  //return list
-  const messages = await Model.find()
+async function getMessages(filterUser) {
+  let filter = {}
+
+  if (filterUser !== null) {
+    filter = {
+      user: filterUser
+    }
+  } else {
+    console.log('Sorry this user does not exist')
+  }
+  const messages = await Model.find(filter)
   return messages
 
 }
