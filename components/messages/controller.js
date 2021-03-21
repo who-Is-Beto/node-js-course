@@ -42,8 +42,26 @@ const updateMessage = (id, message) => {
   });
 };
 
+const deleteMessage = (id) => {
+  return new Promise((res, rej) => {
+    if (!id) {
+      rej('Inavlid params')
+      return false
+    }
+
+    store.remove(id)
+      .then(() => {
+        res()
+      })
+      .catch((error) => {
+        rej(error)
+      })
+  })
+}
+
 module.exports = {
   addMessage,
   getMessages,
   updateMessage,
+  deleteMessage,
 }

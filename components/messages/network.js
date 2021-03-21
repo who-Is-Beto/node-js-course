@@ -36,4 +36,14 @@ router.patch('/:id', async (req, res) => {
     response.error(req, res, "Error", 400, error)
   }
 });
+
+router.delete('/:id', (req, res) => {
+  controller.deleteMessage(req.params.id)
+    .then(() => {
+      response.success(req, res, `message ${req.params.id} eliminated`, 200)
+    })
+    .catch((error) => {
+      response.error(req, res, 'Internal error', 500, error)
+    })
+})
 module.exports = router
