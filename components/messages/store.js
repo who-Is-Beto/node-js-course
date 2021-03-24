@@ -1,3 +1,4 @@
+const { populate } = require('./model');
 const Model = require('./model');
 
 //mongodb+srv://db_user:<password>@cluster0.1ys2v.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
@@ -12,15 +13,24 @@ function addMessage(message) {
 }
 
 async function getMessages(filterUser) {
-  let filter = {}
 
-  if (filterUser !== null) {
-    filter = {
-      user: filterUser
+  return new Promise((resolve, reject) => {
+    let filter = {}
+    if (filterUser !== null) {
+      filter = { user: filterUser }
     }
-  }
-  const messages = await Model.find(filter)
-  return messages
+
+    Model.find(filter)
+      .populate('user').exec((error, populatedData) => {
+        if (error) {
+          reject(error)
+          return false
+        }
+        resolve(populatedData)
+      })
+  })
+
+
 
 }
 
